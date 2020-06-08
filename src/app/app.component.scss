@@ -68,10 +68,11 @@
       }
     }
     .app-content {
-      position: relative;
-      top: 10px;
-      width: calc(100% - 20px);
-      margin: auto;
+      h1 {
+        font-weight: lighter;
+      }
+      width: calc(100% - 52px);
+      margin: 20px auto auto auto;
     }
   }
 }

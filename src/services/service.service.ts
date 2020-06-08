@@ -11,6 +11,7 @@ import { ConfigService } from './config.service';
 })
 export class ServiceService {
 
+  private url: string;
   private headers: HttpHeaders;
   private _serviceSubject: Subject<Array<Service>>;
 
@@ -20,24 +21,26 @@ export class ServiceService {
     private authService: AuthService
   ) {
     this._serviceSubject = new Subject<Array<Service>>();
+    this.url = this.configService.URL;
 
-      // Création de l'entête des requêtes HTTP
-      this.headers = new HttpHeaders({
-        username: this.authService.username,
-        token: this.authService.token
-      });
+    // Création de l'entête des requêtes HTTP
+    this.headers = new HttpHeaders({
+      username: this.authService.username,
+      token: this.authService.token
+    });
   }
 
   public get serviceSubject(): Subject<Array<Service>> {
     return this._serviceSubject;
   }
 
-  public fetchServices(name?: string): Promise<Response> {
+  public fetchServices(name?: string, favorite: boolean = false): Promise<Response> {
     return new Promise<Response>(
       (resolve, reject) => {
         // Appel de l'API
         let services = [];
-        this.httpClient.get('https://78.112.250.27:5000/api/v1/services', {
+        const prefix = favorite ? '/favorite' : '';
+        this.httpClient.get(`${this.url}${prefix}/services`, {
           headers: this.headers
         })
           .subscribe(
@@ -45,6 +48,50 @@ export class ServiceService {
               services = response.services;
               // Renvoi des services via le sujet
               this._serviceSubject.next(services);
+              resolve(response);
+            },
+            (error: HttpErrorResponse) => {
+              console.log(error.message)
+              reject(error);
+            }
+          );
+      }
+    );
+  }
+
+  public startService(name: string): Promise<Response> {
+    return new Promise<Response>(
+      (resolve, reject) => {
+        // Appel de l'API
+        let services = [];
+        this.httpClient.put(`${this.url}/service/${name}`,
+        {},
+        {
+          headers: this.headers
+        })
+          .subscribe(
+            (response: Response) => {
+              resolve(response);
+            },
+            (error: HttpErrorResponse) => {
+              console.log(error.message)
+              reject(error);
+            }
+          );
+      }
+    );
+  }
+
+  public stopService(name: string): Promise<Response> {
+    return new Promise<Response>(
+      (resolve, reject) => {
+        // Appel de l'API
+        let services = [];
+        this.httpClient.delete(`${this.url}/service/${name}`, {
+          headers: this.headers
+        })
+          .subscribe(
+            (response: Response) => {
               resolve(response);
             },
             (error: HttpErrorResponse) => {

@@ -1,18 +1,24 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Response } from 'src/models/response.model';
+import { ConfigService } from './config.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
+  private url: string;
   private _isLoggedIn: boolean
   private _username: string;
   private _token: string;
 
-  constructor(private httpClient: HttpClient) {
+  constructor(
+    private configService: ConfigService,
+    private httpClient: HttpClient
+  ) {
     this.loadSession();
+    this.url = this.configService.URL;
   }
 
   public get isLoggedIn(): boolean {
@@ -28,7 +34,7 @@ export class AuthService {
   }
 
   public login(username: string, password: string): void {
-    this.httpClient.post('https://78.112.250.27:5000/api/v1/login', {
+    this.httpClient.post(`${this.url}/login`, {
       username, password
     })
       .subscribe(

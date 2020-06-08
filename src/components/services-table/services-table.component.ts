@@ -1,5 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Service } from 'src/models/service.model';
+import { ServiceService } from 'src/services/service.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-services-table',
@@ -14,7 +17,10 @@ export class ServicesTableComponent implements OnInit {
   @Input() showDescription: boolean = false;
   displayedColumns: string[] = [ 'name' ];
 
-  constructor() {}
+  constructor(
+    private snackBar: MatSnackBar,
+    private serviceService: ServiceService
+  ) {}
 
   ngOnInit(): void {
     if (this.showDescription) {
@@ -24,8 +30,26 @@ export class ServicesTableComponent implements OnInit {
   }
 
   public onToggle(service: Service): void {
-    // TODO: Démarrage ou extinction du service
-    // L'état du service envoyé dans la méthode n'est pas encore modifié lors de l'appel à cette dernière
-    // Il faut donc envoyé l'inverse de la valeur reçue en paramètre dans 'service.active'
+    if (service.active) {
+      this.serviceService.stopService(service.name)
+        .then(() => {
+          this.snackBar.open('La service a bien été arrêté', 'Fermer', {
+            duration: 3000,
+          });
+        })
+        .catch((error: HttpErrorResponse) => {
+          
+        });
+    } else {
+      this.serviceService.startService(service.name)
+        .then(() => {
+          this.snackBar.open('La service a bien été demarré', 'Fermer', {
+            duration: 3000,
+          });
+        })
+        .catch((error: HttpErrorResponse) => {
+          
+        });
+    }
   }
 }

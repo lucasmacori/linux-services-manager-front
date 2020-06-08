@@ -1,14 +1,14 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ServiceService } from 'src/services/service.service';
 import { Subscription } from 'rxjs';
 import { Service } from 'src/models/service.model';
+import { ServiceService } from 'src/services/service.service';
 
 @Component({
-  selector: 'app-favorite-services',
-  templateUrl: './favorite-services.component.html',
-  styleUrls: ['./favorite-services.component.scss']
+  selector: 'app-services',
+  templateUrl: './services.component.html',
+  styleUrls: ['./services.component.scss']
 })
-export class FavoriteServicesComponent implements OnInit, OnDestroy {
+export class ServicesComponent implements OnInit, OnDestroy {
 
   public isLoading: boolean;
   private serviceSub: Subscription;
@@ -28,7 +28,7 @@ export class FavoriteServicesComponent implements OnInit, OnDestroy {
           this.services = services;
         }
       );
-    this.serviceService.fetchServices(undefined, true);
+    this.serviceService.fetchServices();
   }
 
   ngOnDestroy(): void {

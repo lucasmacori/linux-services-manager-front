@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { AuthService } from 'src/services/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,12 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'linux-services-manager-front';
+
+  constructor(
+    public authService: AuthService
+  ) {}
+
+  public onLogoutClick(): void {
+    this.authService.logout();
+  }
 }

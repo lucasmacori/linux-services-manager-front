@@ -1,0 +1,29 @@
+<mat-card class="login-container">
+    <form [formGroup]="loginForm">
+        <!-- Nom d'utilisateur -->
+        <p>
+            <mat-form-field appearance="fill">
+                <mat-label>Nom d'utilisateur</mat-label>
+                <input matInput placeholder="admin" formControlName="username">
+                <mat-icon matSuffix>face</mat-icon>
+                <mat-hint>Le nom d'utilisateur par défaut est 'admin'</mat-hint>
+            </mat-form-field>
+        </p>
+
+        <!-- Mot de passe -->
+        <p>
+            <mat-form-field appearance="fill">
+                <mat-label>Mot de passe</mat-label>
+                <input type="password" matInput formControlName="password">
+                <mat-icon matSuffix>lock</mat-icon>
+            </mat-form-field>
+        </p>
+
+        <!-- Bouton de connexion -->
+        <button type="submit" mat-raised-button color="primary"
+            (click)="onSubmit()" [disabled]="!loginForm.valid">
+            <mat-icon>login</mat-icon>
+            Se connecter
+        </button>
+    </form>
+</mat-card>

@@ -1,85 +1,85 @@
 .container {
-    width: 100%;
-    height: 100%;
-    mat-drawer {
-      width: 200px;
-      .header {
-        text-align: center;
-        background-color: #393939;
-        color: white;
-        padding: 10px;
-        .logo {
-          width: 70%;
-          padding: auto;
-          margin: 10px;
-        }
-        h2 {
-          width: calc(100% - 20px);
-          margin: auto;
-        }
+  width: 100%;
+  height: 100%;
+  mat-drawer {
+    width: 200px;
+    .header {
+      text-align: center;
+      background-color: #393939;
+      color: white;
+      padding: 10px;
+      .logo {
+        width: 70%;
+        padding: auto;
+        margin: 10px;
       }
-      .items {
-        width: 100%;
-        mat-list-item {
-          button {
-            width: 100%;
-            border-radius: 0;
-            padding: 5px;
-            position: relative;
-            padding-left: 30px;
-            mat-icon, a {
-              float: left;
-            }
-            mat-icon {
-              margin-right: 10px;
-              position: relative;
-              top: 4px;
-              color: black;
-            }
-            mat-icon.warnColored {
-              color: #f44336;
-            }
-            .menu_toggle {
-              @extend .toggle;
-            }
-            .theme_toggle {
-              @extend .toggle;
-            }
-          }
-          .language-selector {
-            position: relative;
-            left: 10px;
-          }
-        }
-        .active-light {
-          background-color: #E3E3E3;
-        }
-        .active-dark {
-          background-color: #4A4A4A;
-        }
-      }
-    }
-    mat-drawer-content {
-      .toolbar {
-        position: fixed;
-        z-index: 1000;
-        .title {
-          color: white;
-        }
-      }
-      .app-content {
-        position: relative;
-        top: 10px;
+      h2 {
         width: calc(100% - 20px);
         margin: auto;
       }
     }
-  }
-  
-  .toggle {
-    mat-icon {
-      color: black;
-      position: relative;
-      top: 0px;
+    .items {
+      width: 100%;
+      mat-list-item {
+        button {
+          width: 100%;
+          border-radius: 0;
+          padding: 5px;
+          position: relative;
+          padding-left: 30px;
+          mat-icon, a {
+            float: left;
+          }
+          mat-icon {
+            margin-right: 10px;
+            position: relative;
+            top: 4px;
+            color: black;
+          }
+          mat-icon.warnColored {
+            color: #f44336;
+          }
+          .menu_toggle {
+            @extend .toggle;
+          }
+          .theme_toggle {
+            @extend .toggle;
+          }
+        }
+        .language-selector {
+          position: relative;
+          left: 10px;
+        }
+      }
+      .active-light {
+        background-color: #E3E3E3;
+      }
+      .active-dark {
+        background-color: #4A4A4A;
+      }
     }
   }
+  mat-drawer-content {
+    .toolbar {
+      position: fixed;
+      z-index: 1000;
+      .title {
+        color: white;
+      }
+    }
+    .app-content {
+      position: relative;
+      top: 10px;
+      width: calc(100% - 20px);
+      margin: auto;
+    }
+  }
+}
+  
+.toggle {
+  mat-icon {
+    color: black;
+    position: relative;
+    top: 0px;
+  }
+}

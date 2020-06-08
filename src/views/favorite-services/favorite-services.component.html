@@ -1,1 +1,1 @@
-<app-services-table showDescription="true"></app-services-table>
+<app-services-table *ngIf="!isLoading" [services]="services" showDescription="true"></app-services-table>

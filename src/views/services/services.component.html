@@ -1,2 +1,3 @@
 <mat-spinner *ngIf="isLoading"></mat-spinner>
-<app-services-table *ngIf="!isLoading" [services]="services" showDescription="true"></app-services-table>
+<app-services-table *ngIf="!isLoading" [services]="services"
+    showFavoriteButton="true" showDescription="true"></app-services-table>

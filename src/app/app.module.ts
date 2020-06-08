@@ -13,6 +13,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 import { FavoriteServicesComponent } from '../views/favorite-services/favorite-services.component';
 import { ServicesTableComponent } from '../components/services-table/services-table.component';
 import { MatTableModule } from '@angular/material/table';
@@ -47,6 +48,7 @@ import { ServicesComponent } from '../views/services/services.component';
     MatButtonModule,
     MatIconModule,
     MatProgressSpinnerModule,
+    MatCheckboxModule,
     MatFormFieldModule,
     MatSnackBarModule,
     MatInputModule,

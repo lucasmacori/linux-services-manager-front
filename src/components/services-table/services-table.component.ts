@@ -15,6 +15,7 @@ export class ServicesTableComponent implements OnInit {
     { name: 'apache2', description: 'Test', active: true }
   ];
   @Input() showDescription: boolean = false;
+  @Input() showFavoriteButton: boolean = false;
   displayedColumns: string[] = [ 'name' ];
 
   constructor(
@@ -26,7 +27,14 @@ export class ServicesTableComponent implements OnInit {
     if (this.showDescription) {
       this.displayedColumns.push('description');
     }
+    if (this.showFavoriteButton) {
+      this.displayedColumns.push('favorite');
+    }
     this.displayedColumns.push('action');
+  }
+
+  public onToggleStar(service: Service): void {
+    // TODO: Ajouter ou supprimer le services des services favoris
   }
 
   public onToggle(service: Service): void {

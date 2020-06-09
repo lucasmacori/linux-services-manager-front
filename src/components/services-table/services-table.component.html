@@ -1,4 +1,9 @@
-<table mat-table [dataSource]="services" class="mat-elevation-z8">
+<mat-form-field *ngIf="showSearch">
+    <mat-label>Rechercher par nom</mat-label>
+    <input matInput (keyup)="applyFilter($event)" placeholder="minecraft">
+</mat-form-field>
+
+<table mat-table [dataSource]="services" class="mat-elevation-z8" *ngIf="this.services; else noData">
     <!-- Position Column -->
     <ng-container matColumnDef="name">
         <th mat-header-cell *matHeaderCellDef>Nom</th>
@@ -32,5 +37,11 @@
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 </table>
-  
+
+<ng-template #noData>
+    <div class="no-data">
+        <mat-icon>sentiment_very_dissatisfied</mat-icon>
+        <h2>Aucun service à afficher</h2>
+    </div>
+</ng-template>
   

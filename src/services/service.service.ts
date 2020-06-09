@@ -40,7 +40,8 @@ export class ServiceService {
         // Appel de l'API
         let services = [];
         const prefix = favorite ? '/favorite' : '';
-        this.httpClient.get(`${this.url}${prefix}/services`, {
+        const nameQuery = name ? `/${name}` : ''
+        this.httpClient.get(`${this.url}${prefix}/services${nameQuery}`, {
           headers: this.headers
         })
           .subscribe(
@@ -51,7 +52,6 @@ export class ServiceService {
               resolve(response);
             },
             (error: HttpErrorResponse) => {
-              console.log(error.message)
               reject(error);
             }
           );
@@ -73,7 +73,6 @@ export class ServiceService {
               resolve(response);
             },
             (error: HttpErrorResponse) => {
-              console.log(error.message)
               reject(error);
             }
           );
@@ -93,7 +92,6 @@ export class ServiceService {
               resolve(response);
             },
             (error: HttpErrorResponse) => {
-              console.log(error.message)
               reject(error);
             }
           );
@@ -118,7 +116,6 @@ export class ServiceService {
               resolve(response);
             },
             (error: HttpErrorResponse) => {
-              console.log(error.message)
               reject(error);
             }
           );
@@ -139,7 +136,6 @@ export class ServiceService {
               resolve(response);
             },
             (error: HttpErrorResponse) => {
-              console.log(error.message)
               reject(error);
             }
           );

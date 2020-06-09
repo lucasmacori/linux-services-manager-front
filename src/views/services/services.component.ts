@@ -2,6 +2,8 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Service } from 'src/models/service.model';
 import { ServiceService } from 'src/services/service.service';
+import { HttpErrorResponse } from '@angular/common/http';
+import { CommunicationService } from 'src/services/communication.service';
 
 @Component({
   selector: 'app-services',
@@ -15,6 +17,7 @@ export class ServicesComponent implements OnInit, OnDestroy {
   public services: Array<Service>;
 
   constructor(
+    private communicationService: CommunicationService,
     private serviceService: ServiceService
   ) {
     this.isLoading = true;
@@ -26,10 +29,17 @@ export class ServicesComponent implements OnInit, OnDestroy {
         (services: Array<Service>) => {
           this.isLoading = false;
           this.services = services;
-          console.log(this.services);
         }
       );
-    this.serviceService.fetchServices();
+    this.refresh();
+  }
+
+  public refresh(name?: string): void {
+    this.serviceService.fetchServices(name, false)
+      .catch((error: HttpErrorResponse) => {
+        this.isLoading = false;
+        this.communicationService.showError(error.error.message);
+      });
   }
 
   ngOnDestroy(): void {

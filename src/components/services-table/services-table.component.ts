@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Service } from 'src/models/service.model';
 import { ServiceService } from 'src/services/service.service';
 import { HttpErrorResponse } from '@angular/common/http';
@@ -14,12 +14,19 @@ export class ServicesTableComponent implements OnInit {
   @Input() services: Array<Service>;
   @Input() showDescription: boolean = false;
   @Input() showFavoriteButton: boolean = false;
+  @Input() showSearch: boolean;
+  @Output() filter: EventEmitter<string>;
+
+  public noData: boolean = true;
   displayedColumns: string[] = [ 'name' ];
 
   constructor(
     private communicationService: CommunicationService,
     private serviceService: ServiceService
-  ) {}
+  ) {
+    this.filter = new EventEmitter<string>();
+    this.noData = true;
+  }
 
   ngOnInit(): void {
     if (this.showDescription) {
@@ -29,6 +36,11 @@ export class ServicesTableComponent implements OnInit {
       this.displayedColumns.push('favorite');
     }
     this.displayedColumns.push('action');
+  }
+
+  public applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.filter.emit(filterValue);
   }
 
   public onToggleStar(service: Service): void {

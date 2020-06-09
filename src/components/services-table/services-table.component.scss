@@ -6,3 +6,13 @@ table {
     right: 5px;
     top: 2px;
 }
+.no-data {
+    width: 100%;
+    margin: auto;
+    text-align: center;
+    mat-icon {
+        font-size: 48pt;
+        position: relative;
+        right: 25px;
+    }
+}

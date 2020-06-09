@@ -2,6 +2,8 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ServiceService } from 'src/services/service.service';
 import { Subscription } from 'rxjs';
 import { Service } from 'src/models/service.model';
+import { HttpErrorResponse } from '@angular/common/http';
+import { CommunicationService } from 'src/services/communication.service';
 
 @Component({
   selector: 'app-favorite-services',
@@ -15,6 +17,7 @@ export class FavoriteServicesComponent implements OnInit, OnDestroy {
   public services: Array<Service>;
 
   constructor(
+    private communicationService: CommunicationService,
     private serviceService: ServiceService
   ) {
     this.isLoading = true;
@@ -28,7 +31,15 @@ export class FavoriteServicesComponent implements OnInit, OnDestroy {
           this.services = services;
         }
       );
-    this.serviceService.fetchServices(undefined, true);
+    this.refresh();
+  }
+
+  public refresh(name?: string): void {
+    this.serviceService.fetchServices(name, true)
+      .catch((error: HttpErrorResponse) => {
+        this.isLoading = false;
+        this.communicationService.showError(error.error.message);
+      });
   }
 
   ngOnDestroy(): void {

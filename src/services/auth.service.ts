@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Response } from 'src/models/response.model';
 import { ConfigService } from './config.service';
+import { CommunicationService } from './communication.service';
 
 @Injectable({
   providedIn: 'root'
@@ -14,6 +15,7 @@ export class AuthService {
   private _token: string;
 
   constructor(
+    private communicationService: CommunicationService,
     private configService: ConfigService,
     private httpClient: HttpClient
   ) {
@@ -39,11 +41,13 @@ export class AuthService {
     })
       .subscribe(
         (response: Response) => {
-          this.saveSession(username, response.token)
+          this._username = username;
+          this._token = response.token;
+          this.saveSession()
           this._isLoggedIn = true;
         },
         (error: HttpErrorResponse) => {
-          console.log(error);
+          this.communicationService.showError(error.error.message);
         }
       );
   }
@@ -74,11 +78,10 @@ export class AuthService {
     
   }
 
-  private saveSession(username: string, token: string): void {
-    this._username = username;
-    this._token = token;
+  private saveSession(): void {
     localStorage.setItem('auth', JSON.stringify({
-      username, token
+      username: this._username,
+      token: this._token
     }));
   }
 }

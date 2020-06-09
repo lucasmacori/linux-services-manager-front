@@ -21,7 +21,7 @@
 
         <!-- Bouton de connexion -->
         <button type="submit" mat-raised-button color="primary"
-            (click)="onSubmit()" [disabled]="!loginForm.valid">
+            (click)="onSubmit()" [disabled]="!loginForm.valid || isLoading">
             <mat-icon>login</mat-icon>
             Se connecter
         </button>

@@ -9,11 +9,14 @@ import { AuthService } from 'src/services/auth.service';
 })
 export class LoginComponent implements OnInit {
 
+  public isLoading: boolean;
   public loginForm: FormGroup;
 
   constructor(
     private authService: AuthService
-  ) {}
+  ) {
+    this.isLoading = false;
+  }
 
   ngOnInit(): void {
     this.loginForm = new FormGroup({
@@ -23,8 +26,12 @@ export class LoginComponent implements OnInit {
   }
 
   public onSubmit(): void {
+    this.isLoading = true;
     const username = this.loginForm.controls.username.value;
     const password = this.loginForm.controls.password.value;
-    this.authService.login(username, password);
+    this.authService.login(username, password)
+      .catch(() => {
+        this.isLoading = false;
+      });
   }
 }

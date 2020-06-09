@@ -22,12 +22,6 @@ export class ServiceService {
   ) {
     this._serviceSubject = new Subject<Array<Service>>();
     this.url = this.configService.URL;
-
-    // Création de l'entête des requêtes HTTP
-    this.headers = new HttpHeaders({
-      username: this.authService.username,
-      token: this.authService.token
-    });
   }
 
   public get serviceSubject(): Subject<Array<Service>> {
@@ -42,7 +36,10 @@ export class ServiceService {
         const prefix = favorite ? '/favorite' : '';
         const nameQuery = name ? `/${name}` : ''
         this.httpClient.get(`${this.url}${prefix}/services${nameQuery}`, {
-          headers: this.headers
+          headers: new HttpHeaders({
+            username: this.authService.username,
+            token: this.authService.token
+          })
         })
           .subscribe(
             (response: Response) => {
@@ -66,7 +63,10 @@ export class ServiceService {
         this.httpClient.put(`${this.url}/service/${name}`,
         {},
         {
-          headers: this.headers
+          headers: new HttpHeaders({
+            username: this.authService.username,
+            token: this.authService.token
+          })
         })
           .subscribe(
             (response: Response) => {
@@ -85,7 +85,10 @@ export class ServiceService {
       (resolve, reject) => {
         // Appel de l'API
         this.httpClient.delete(`${this.url}/service/${name}`, {
-          headers: this.headers
+          headers: new HttpHeaders({
+            username: this.authService.username,
+            token: this.authService.token
+          })
         })
           .subscribe(
             (response: Response) => {
@@ -109,7 +112,10 @@ export class ServiceService {
           serviceName: service.name
         },
         {
-          headers: this.headers
+          headers: new HttpHeaders({
+            username: this.authService.username,
+            token: this.authService.token
+          })
         })
           .subscribe(
             (response: Response) => {
@@ -129,7 +135,10 @@ export class ServiceService {
         // Appel de l'API
         this.httpClient.delete(`${this.url}/favorite/services/${service.name}`,
         {
-          headers: this.headers
+          headers: new HttpHeaders({
+            username: this.authService.username,
+            token: this.authService.token
+          })
         })
           .subscribe(
             (response: Response) => {

@@ -35,21 +35,27 @@ export class AuthService {
     return this._token;
   }
 
-  public login(username: string, password: string): void {
-    this.httpClient.post(`${this.url}/login`, {
-      username, password
-    })
-      .subscribe(
-        (response: Response) => {
-          this._username = username;
-          this._token = response.token;
-          this.saveSession()
-          this._isLoggedIn = true;
-        },
-        (error: HttpErrorResponse) => {
-          this.communicationService.showError(error.error.message);
-        }
-      );
+  public login(username: string, password: string): Promise<Response> {
+    return new Promise<Response>(
+      (resolve, reject) => {
+        this.httpClient.post(`${this.url}/login`, {
+          username, password
+        })
+          .subscribe(
+            (response: Response) => {
+              this._username = username;
+              this._token = response.token;
+              this.saveSession()
+              this._isLoggedIn = true;
+              resolve(response);
+            },
+            (error: HttpErrorResponse) => {
+              this.communicationService.showError(error.error.message);
+              reject(error)
+            }
+          );
+      }
+    );
   }
 
   public logout(): void {

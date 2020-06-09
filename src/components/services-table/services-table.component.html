@@ -17,7 +17,7 @@
             <mat-icon class="star">star</mat-icon>
         </th>
         <td mat-cell *matCellDef="let service">
-            <mat-checkbox (change)="onToggleStar(service)"></mat-checkbox>
+            <mat-checkbox [(ngModel)]="service.favorite" (change)="onToggleStar(service)"></mat-checkbox>
         </td>
     </ng-container>
 

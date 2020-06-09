@@ -20,12 +20,15 @@ import { MatTableModule } from '@angular/material/table';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatDialogModule } from '@angular/material/dialog';
 import { ServiceService } from 'src/services/service.service';
 import { HttpClientModule } from '@angular/common/http';
 import { AuthService } from 'src/services/auth.service';
 import { LoginComponent } from '../views/login/login.component';
 import { ConfigService } from 'src/services/config.service';
 import { ServicesComponent } from '../views/services/services.component';
+import { InfoPopupComponent } from '../components/info-popup/info-popup.component';
+import { CommunicationService } from 'src/services/communication.service';
 
 @NgModule({
   declarations: [
@@ -33,7 +36,11 @@ import { ServicesComponent } from '../views/services/services.component';
     FavoriteServicesComponent,
     ServicesTableComponent,
     LoginComponent,
-    ServicesComponent
+    ServicesComponent,
+    InfoPopupComponent
+  ],
+  entryComponents: [
+    InfoPopupComponent
   ],
   imports: [
     BrowserModule,
@@ -51,6 +58,7 @@ import { ServicesComponent } from '../views/services/services.component';
     MatCheckboxModule,
     MatFormFieldModule,
     MatSnackBarModule,
+    MatDialogModule,
     MatInputModule,
     MatTableModule,
     MatSlideToggleModule
@@ -58,6 +66,7 @@ import { ServicesComponent } from '../views/services/services.component';
   providers: [
     ConfigService,
     AuthService,
+    CommunicationService,
     ServiceService
   ],
   bootstrap: [AppComponent]

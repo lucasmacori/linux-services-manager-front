@@ -63,7 +63,6 @@ export class ServiceService {
     return new Promise<Response>(
       (resolve, reject) => {
         // Appel de l'API
-        let services = [];
         this.httpClient.put(`${this.url}/service/${name}`,
         {},
         {
@@ -86,8 +85,53 @@ export class ServiceService {
     return new Promise<Response>(
       (resolve, reject) => {
         // Appel de l'API
-        let services = [];
         this.httpClient.delete(`${this.url}/service/${name}`, {
+          headers: this.headers
+        })
+          .subscribe(
+            (response: Response) => {
+              resolve(response);
+            },
+            (error: HttpErrorResponse) => {
+              console.log(error.message)
+              reject(error);
+            }
+          );
+      }
+    );
+  }
+
+  public addFavoriteService(service: Service): Promise<Response> {
+    return new Promise<Response>(
+      (resolve, reject) => {
+        // Appel de l'API
+        this.httpClient.post(`${this.url}/favorite/services`,
+        {
+          name: service.name,
+          serviceName: service.name
+        },
+        {
+          headers: this.headers
+        })
+          .subscribe(
+            (response: Response) => {
+              resolve(response);
+            },
+            (error: HttpErrorResponse) => {
+              console.log(error.message)
+              reject(error);
+            }
+          );
+      }
+    );
+  }
+
+  public deleteFavoriteService(service: Service): Promise<Response> {
+    return new Promise<Response>(
+      (resolve, reject) => {
+        // Appel de l'API
+        this.httpClient.delete(`${this.url}/favorite/services/${service.name}`,
+        {
           headers: this.headers
         })
           .subscribe(

@@ -26,6 +26,7 @@ export class ServicesComponent implements OnInit, OnDestroy {
         (services: Array<Service>) => {
           this.isLoading = false;
           this.services = services;
+          console.log(this.services);
         }
       );
     this.serviceService.fetchServices();

@@ -24,7 +24,7 @@ export class CommunicationService {
       width: '500px',
       data: {
         title: 'Erreur',
-        message: message
+        message: message ? message : 'Une erreur inattendue est survenue'
       }
     });
   }
